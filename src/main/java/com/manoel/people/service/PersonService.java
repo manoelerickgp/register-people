@@ -8,7 +8,6 @@ public interface PersonService {
 
     Person findById(Long id);
     List<Person> findAll();
-
     Person save(Person obj);
 
 }

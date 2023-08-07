@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Primary
@@ -19,7 +20,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(Long id) {
-        return repository.findById(id);
+        Optional<Person> obj = repository.findById(id);
+        return obj.orElseThrow();
     }
 
     @Override

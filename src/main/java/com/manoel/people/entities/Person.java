@@ -26,5 +26,10 @@ public class Person {
         this.age = age;
     }
 
-
+    public Person(Long id, String name, String cpf, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.age = age;
+    }
 }
