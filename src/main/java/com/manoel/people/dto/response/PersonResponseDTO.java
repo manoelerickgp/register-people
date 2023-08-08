@@ -1,5 +1,6 @@
 package com.manoel.people.dto.response;
 
+import com.manoel.people.entities.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +16,10 @@ public class PersonResponseDTO {
     private Integer age;
 
 
-    public PersonResponseDTO(Long id, String name, String cpf, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.age = age;
+    public PersonResponseDTO(Person person) {
+        this.id = person.getId();
+        this.name = person.getName();
+        this.cpf = person.getCpf();
+        this.age = person.getAge();
     }
 }

@@ -1,5 +1,6 @@
 package com.manoel.people.resources;
 
+import com.manoel.people.dto.response.PersonResponseDTO;
 import com.manoel.people.entities.Person;
 import com.manoel.people.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +21,12 @@ public class PersonResource {
     }
 
     @GetMapping
-    public List<Person> findAll(){
+    public List<PersonResponseDTO> findAll(){
         return service.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Person findById(@PathVariable Long id) {
+    public PersonResponseDTO findById(@PathVariable Long id) {
         return service.findById(id);
     }
 }

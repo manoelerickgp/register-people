@@ -1,5 +1,7 @@
 package com.manoel.people.service;
 
+import com.manoel.people.dto.request.PersonRequestDTO;
+import com.manoel.people.dto.response.PersonResponseDTO;
 import com.manoel.people.entities.Person;
 import com.manoel.people.repositories.PersonRepository;
 import org.springframework.context.annotation.Primary;
@@ -19,18 +21,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findById(Long id) {
-        Optional<Person> obj = repository.findById(id);
-        return obj.orElseThrow();
+    public PersonResponseDTO findById(Long id) {
+        Optional<Person> person = repository.findById(id);
+        PersonResponseDTO obj = new PersonResponseDTO(person);
+        return obj.orElseThrow(() -> new RuntimeException("Person not found on database"));
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<PersonResponseDTO> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Person save(Person obj) {
+    public PersonResponseDTO save(PersonRequestDTO obj) {
         return repository.save(obj);
     }
 }
