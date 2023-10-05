@@ -10,6 +10,8 @@ public interface PersonService {
 
     PersonResponseDTO findById(Long id);
     List<PersonResponseDTO> findAll();
-    PersonResponseDTO save(PersonRequestDTO obj);
+    PersonResponseDTO register(PersonRequestDTO personDTO);
+    PersonResponseDTO update(PersonRequestDTO personDTO);
+    void delete(Long id);
 
 }
