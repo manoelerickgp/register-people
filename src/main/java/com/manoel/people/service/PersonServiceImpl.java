@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
 
     private PersonRepository repository;
     private PersonMapper personMapper;
+
+    public PersonServiceImpl(PersonRepository repository, PersonMapper personMapper) {
+        this.repository = repository;
+        this.personMapper = personMapper;
+    }
 
     @Override
     public PersonResponseDTO findById(Long id) {
