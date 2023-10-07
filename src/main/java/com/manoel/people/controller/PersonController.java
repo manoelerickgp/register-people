@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/person")
 public class PersonController {
@@ -16,6 +18,11 @@ public class PersonController {
 
     public PersonController(PersonServiceImpl personService) {
         this.personService = personService;
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<PersonResponseDTO>> findAllPersons(){
+        return ResponseEntity.ok().body(personService.findAll());
     }
 
     @GetMapping(value = "/{id}")

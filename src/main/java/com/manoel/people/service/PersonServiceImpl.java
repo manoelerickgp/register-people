@@ -31,7 +31,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonResponseDTO> findAll() {
-        return null;
+        List<Person> list = repository.findAll();
+        return personMapper.toPersonDtoList(list);
     }
 
     @Override
