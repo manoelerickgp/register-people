@@ -39,7 +39,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO update(Long id, PersonRequestDTO personDTO) {
-        return null;
+        Person person = repository.getReferenceById(id);
+        PersonMapper.updatePersonData(person, personDTO);
+        return PersonMapper.toPersonDTO(repository.save(person));
     }
 
     @Override

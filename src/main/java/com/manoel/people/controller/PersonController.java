@@ -32,11 +32,16 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseDTO> register(@RequestBody PersonRequestDTO personRequestDTO) {
-        PersonResponseDTO personResponseDTO = personService.register(personRequestDTO);
+    public ResponseEntity<PersonResponseDTO> register(@RequestBody PersonRequestDTO personReqDTO) {
+        PersonResponseDTO personResponseDTO = personService.register(personReqDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(personResponseDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(personResponseDTO);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PersonResponseDTO> update(@PathVariable Long id, @RequestBody PersonRequestDTO personReqDTO) {
+        return ResponseEntity.ok().body(personService.update(id, personReqDTO));
     }
 
 
