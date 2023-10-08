@@ -6,8 +6,6 @@ import com.manoel.people.entities.Person;
 import com.manoel.people.exceptions.ResourceNotFoundException;
 import com.manoel.people.mapper.PersonMapper;
 import com.manoel.people.repositories.PersonRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,38 +13,36 @@ import java.util.List;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    private PersonRepository repository;
-    private PersonMapper personMapper;
+    private final PersonRepository repository;
 
-    public PersonServiceImpl(PersonRepository repository, PersonMapper personMapper) {
+    public PersonServiceImpl(PersonRepository repository) {
         this.repository = repository;
-        this.personMapper = personMapper;
     }
 
     @Override
     public PersonResponseDTO findById(Long id) {
         Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
-        return new PersonResponseDTO(person);
+        return PersonMapper.toPersonDTO(person);
     }
 
     @Override
     public List<PersonResponseDTO> findAll() {
         List<Person> list = repository.findAll();
-        return personMapper.toPersonDtoList(list);
+        return PersonMapper.toPersonDtoList(list);
     }
 
     @Override
     public PersonResponseDTO register(PersonRequestDTO personDTO) {
-        return null;
+        Person person = PersonMapper.toPerson(personDTO);
+        return PersonMapper.toPersonDTO(repository.save(person));
     }
 
     @Override
-    public PersonResponseDTO update(PersonRequestDTO personDTO) {
+    public PersonResponseDTO update(Long id, PersonRequestDTO personDTO) {
         return null;
     }
 
     @Override
     public void delete(Long id) {
-
     }
 }
