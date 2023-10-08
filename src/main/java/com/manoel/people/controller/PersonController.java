@@ -44,5 +44,11 @@ public class PersonController {
         return ResponseEntity.ok().body(personService.update(id, personReqDTO));
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        personService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
