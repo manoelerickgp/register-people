@@ -31,10 +31,10 @@ public class PersonController {
         return ResponseEntity.ok().body(personService.findById(id));
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping
     public ResponseEntity<PersonResponseDTO> register(@RequestBody PersonRequestDTO personRequestDTO) {
         PersonResponseDTO personResponseDTO = personService.register(personRequestDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/people/{id}")
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(personResponseDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(personResponseDTO);
     }
