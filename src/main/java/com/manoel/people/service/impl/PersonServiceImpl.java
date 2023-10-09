@@ -1,4 +1,4 @@
-package com.manoel.people.service;
+package com.manoel.people.service.impl;
 
 import com.manoel.people.dto.request.PersonRequestDTO;
 import com.manoel.people.dto.response.PersonResponseDTO;
@@ -6,6 +6,8 @@ import com.manoel.people.entities.Person;
 import com.manoel.people.exceptions.ResourceNotFoundException;
 import com.manoel.people.mapper.PersonMapper;
 import com.manoel.people.repositories.PersonRepository;
+import com.manoel.people.service.PersonService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +23,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO findById(Long id) {
-        Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
-        return PersonMapper.toPersonDTO(person);
+        return PersonMapper.toPersonDTO(returnPerson(id));
     }
 
     @Override
@@ -39,13 +40,17 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO update(Long id, PersonRequestDTO personDTO) {
-        Person person = repository.getReferenceById(id);
+        Person person = returnPerson(id);
         PersonMapper.updatePersonData(person, personDTO);
         return PersonMapper.toPersonDTO(repository.save(person));
     }
 
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        repository.delete(returnPerson(id));
+    }
+
+    private Person returnPerson(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
     }
 }

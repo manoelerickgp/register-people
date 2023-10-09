@@ -2,8 +2,7 @@ package com.manoel.people.controller;
 
 import com.manoel.people.dto.request.PersonRequestDTO;
 import com.manoel.people.dto.response.PersonResponseDTO;
-import com.manoel.people.service.PersonServiceImpl;
-import org.springframework.http.HttpStatus;
+import com.manoel.people.service.impl.PersonServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
