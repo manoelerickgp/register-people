@@ -7,7 +7,6 @@ import com.manoel.people.exceptions.ResourceNotFoundException;
 import com.manoel.people.mapper.PersonMapper;
 import com.manoel.people.repositories.PersonRepository;
 import com.manoel.people.service.PersonService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonResponseDTO> findAll() {
-        List<Person> list = repository.findAll();
-        return PersonMapper.toPersonDtoList(list);
+        return PersonMapper.toPersonDtoList(repository.findAll());
     }
 
     @Override

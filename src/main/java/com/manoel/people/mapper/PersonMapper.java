@@ -3,7 +3,6 @@ package com.manoel.people.mapper;
 import com.manoel.people.dto.request.PersonRequestDTO;
 import com.manoel.people.dto.response.PersonResponseDTO;
 import com.manoel.people.entities.Person;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
