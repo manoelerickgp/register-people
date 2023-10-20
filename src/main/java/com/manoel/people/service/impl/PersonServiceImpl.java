@@ -10,6 +10,7 @@ import com.manoel.people.service.PersonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -21,7 +22,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonResponseDTO findById(Long id) {
+    public PersonResponseDTO findById(UUID id) {
         return PersonMapper.toPersonDTO(returnPerson(id));
     }
 
@@ -37,18 +38,18 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonResponseDTO update(Long id, PersonRequestDTO personDTO) {
+    public PersonResponseDTO update(UUID id, PersonRequestDTO personDTO) {
         Person person = returnPerson(id);
         PersonMapper.updatePersonData(person, personDTO);
         return PersonMapper.toPersonDTO(repository.save(person));
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         repository.delete(returnPerson(id));
     }
 
-    private Person returnPerson(Long id) {
+    private Person returnPerson(UUID id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
     }
 }

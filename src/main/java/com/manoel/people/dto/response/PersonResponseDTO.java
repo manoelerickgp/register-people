@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Data
 public class PersonResponseDTO implements Serializable {
 
-    private Long id;
+    private UUID id;
     private String name;
     private String cpf;
     private Integer age;

@@ -5,13 +5,14 @@ import com.manoel.people.dto.response.PersonResponseDTO;
 import com.manoel.people.entities.Person;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface PersonService {
 
-    PersonResponseDTO findById(Long id);
+    PersonResponseDTO findById(UUID id);
     List<PersonResponseDTO> findAll();
     PersonResponseDTO register(PersonRequestDTO personDTO);
-    PersonResponseDTO update(Long id, PersonRequestDTO personDTO);
-    void delete(Long id);
+    PersonResponseDTO update(UUID id, PersonRequestDTO personDTO);
+    void delete(UUID id);
 
 }

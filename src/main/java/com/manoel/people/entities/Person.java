@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_people")
@@ -13,10 +14,8 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
-    @Setter(AccessLevel.NONE)
-    private Long id;
+    @GeneratedValue(generator = "UUID ")
+    private UUID id;
 
     @Column(length = 50, nullable = false)
     private String name;
