@@ -3,6 +3,7 @@ package com.manoel.people.controller;
 import com.manoel.people.dto.request.PersonRequestDTO;
 import com.manoel.people.dto.response.PersonResponseDTO;
 import com.manoel.people.service.impl.PersonServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,16 +33,17 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseDTO> register(@RequestBody PersonRequestDTO personReqDTO) {
-        PersonResponseDTO personResponseDTO = personService.register(personReqDTO);
+    public ResponseEntity<PersonResponseDTO> register(@RequestBody @Valid PersonRequestDTO personRequestDTO) {
+        var personResponseDTO = personService.register(personRequestDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(personResponseDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(personResponseDTO);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDTO> update(@PathVariable UUID id, @RequestBody PersonRequestDTO personReqDTO) {
-        return ResponseEntity.ok().body(personService.update(id, personReqDTO));
+    public ResponseEntity<PersonResponseDTO> update(@PathVariable UUID id, @RequestBody @Valid PersonRequestDTO personRequestDTO) {
+        var personResponseDTO = personService.update(id, personRequestDTO);
+        return ResponseEntity.ok().body(personResponseDTO);
     }
 
     @DeleteMapping(value = "/{id}")

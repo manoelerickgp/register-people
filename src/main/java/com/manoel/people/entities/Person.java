@@ -14,16 +14,16 @@ import java.util.UUID;
 public class Person implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "UUID ")
+    @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String name;
 
-    @Column(length = 15, nullable = false, unique = true)
+    @Column(length = 15, unique = true)
     private String cpf;
 
-    @Column(length = 3, nullable = false)
+    @Column(length = 3)
     private Integer age;
 
     @Builder

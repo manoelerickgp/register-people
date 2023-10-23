@@ -34,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO register(PersonRequestDTO personDTO) {
-        Person person = PersonMapper.toPerson(personDTO);
+        var person = PersonMapper.toPerson(personDTO);
         return new PersonResponseDTO(repository.save(person));
     }
 
