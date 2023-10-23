@@ -23,25 +23,26 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDTO findById(UUID id) {
-        return PersonMapper.toPersonDTO(returnPerson(id));
+        return new PersonResponseDTO(returnPerson(id));
     }
 
     @Override
     public List<PersonResponseDTO> findAll() {
-        return PersonMapper.toPersonDtoList(repository.findAll());
+        List<Person> listPerson = repository.findAll();
+        return listPerson.stream().map(PersonResponseDTO::new).toList();
     }
 
     @Override
     public PersonResponseDTO register(PersonRequestDTO personDTO) {
         Person person = PersonMapper.toPerson(personDTO);
-        return PersonMapper.toPersonDTO(repository.save(person));
+        return new PersonResponseDTO(repository.save(person));
     }
 
     @Override
     public PersonResponseDTO update(UUID id, PersonRequestDTO personDTO) {
-        Person person = returnPerson(id);
-        PersonMapper.updatePersonData(person, personDTO);
-        return PersonMapper.toPersonDTO(repository.save(person));
+        Person personSaved = returnPerson(id);
+        updatePersonData(personSaved, personDTO);
+        return new PersonResponseDTO(repository.save(personSaved));
     }
 
     @Override
@@ -50,6 +51,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private Person returnPerson(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Person Not Found"));
+    }
+
+    private void updatePersonData(Person personSaved, PersonRequestDTO personRequestDTO) {
+        personSaved.setName(personRequestDTO.getName());
+        personSaved.setCpf(personRequestDTO.getCpf());
+        personSaved.setAge(personRequestDTO.getAge());
     }
 }
